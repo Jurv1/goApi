@@ -11,27 +11,27 @@ type UserController interface {
 	UpdateUser(id string, ctx *gin.Context)
 }
 
-type controller struct {
+type userController struct {
 	service service.UserService
 }
 
 func New(userService service.UserService) UserController {
-	return &controller{service: userService}
+	return &userController{service: userService}
 }
 
-func (controller *controller) CreateNewUser(ctx *gin.Context) models.User {
+func (controller *userController) CreateNewUser(ctx *gin.Context) models.User {
 	var user models.User
 
 	ctx.BindJSON(&user)
-	controller.service.Save(user)
+	controller.service.SaveUser(user)
 
 	return user
 }
 
-func (controller *controller) UpdateUser(id string, ctx *gin.Context) {
+func (controller *userController) UpdateUser(id string, ctx *gin.Context) {
 	var user models.User
 
 	ctx.BindJSON(&user)
-	controller.service.Update(id, user)
+	controller.service.UpdateUser(id, user)
 
 }

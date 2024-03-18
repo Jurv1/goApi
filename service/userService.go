@@ -6,8 +6,8 @@ import (
 )
 
 type UserService interface {
-	Save(user models.User) models.User
-	Update(id string, user models.User)
+	SaveUser(user models.User) models.User
+	UpdateUser(id string, user models.User)
 }
 
 type userService struct {
@@ -15,17 +15,17 @@ type userService struct {
 	userRepo repository.UserRepository
 }
 
-func New(repo repository.UserRepository) UserService {
+func NewUserService(repo repository.UserRepository) UserService {
 	return &userService{
 		userRepo: repo,
 	}
 }
 
-func (service userService) Save(user models.User) models.User {
+func (service userService) SaveUser(user models.User) models.User {
 	service.userRepo.Save(user)
 	return user
 }
 
-func (service userService) Update(id string, user models.User) {
+func (service userService) UpdateUser(id string, user models.User) {
 	service.userRepo.Update(id, user)
 }
